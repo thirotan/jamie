@@ -1,0 +1,55 @@
+/* layout.slim */
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  height: 100%;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  margin-right: auto;
+  margin-left : auto;
+}
+
+.header{
+  height: 75px;
+  background: #ffffff;
+  margin: 0 auto;
+}
+
+.footer{
+  height: 50px;
+  background: #ffffff;
+}
+
+.wrapper {
+  flex: 1;
+  display: flex;
+  background: #ffffff;
+  margin-right: auto;
+  margin-left : auto;
+}
+
+.left {
+  width: 300px;
+  background: white;
+}
+
+.right {
+  width: 300px;
+  background: white;
+}
+
+.contents {
+  flex: 1;
+  background: #ffffff;
+}
+
