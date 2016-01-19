@@ -44,11 +44,13 @@ module SinatraApp
     end
 
     # 投稿されたentryを更新する
-    def edit_entry
+    def edit_entry(name, body, entry_id, date)
+      db.xquery('update entries set name = ?, body = ?, updated_at = ? where entry_id = ?)', name, body, date, entry_id )
     end
    
     # 個別に1つのentryを取得する
-    def get_entry
+    def get_entry(entry_id)
+      db.xquery('select * from entries where entry_id = ?', entry_id)
     end
     
     get '/' do
@@ -67,12 +69,23 @@ module SinatraApp
     end
 
     get '/entry/:id' do
+      @entry = get_entry(params[:id])
+      slim :entry 
     end 
 
     get '/entry/:id/raw' do
+      @entry = get_entry(params[:id])
+      slim :entry 
     end 
  
     put '/entry/:id/edit' do
+      name = params[:name]
+      body = params[:body]
+      entry_id = params[:id]
+      updated_at = Time.now
+      edit_entry(name, body, entry_id, updated_at)
+
+      slim :entry 
     end
   end
 end
