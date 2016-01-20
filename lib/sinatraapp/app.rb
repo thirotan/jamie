@@ -78,6 +78,11 @@ module SinatraApp
       slim :raw_entry 
     end 
  
+    get '/entry/:id/edit' do
+      @entry_list = get_entry(params[:id])
+      slim :edit 
+    end
+
     put '/entry/:id/edit' do
       name = params[:name]
       body = params[:body]
@@ -85,6 +90,7 @@ module SinatraApp
       updated_at = Time.now
       edit_entry(name, body, entry_id, updated_at)
 
+      @entry_list = get_entry(params[:id])
       slim :entry 
     end
   end
