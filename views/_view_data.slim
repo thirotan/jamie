@@ -1,0 +1,7 @@
+div class="entry"
+  - @entry_list.each do |el|
+    pre class="prettyprint"
+      | #{el[:body]}
+    div class="entry_meta"
+      a href="/entry/#{el[:entry_id]}/raw" raw
+      | #{el[:name]}

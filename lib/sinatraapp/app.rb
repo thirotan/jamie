@@ -69,13 +69,13 @@ module SinatraApp
     end
 
     get '/entry/:id' do
-      @entry = get_entry(params[:id])
+      @entry_list = get_entry(params[:id])
       slim :entry 
     end 
 
     get '/entry/:id/raw' do
-      @entry = get_entry(params[:id])
-      slim :entry 
+      @entry_list = get_entry(params[:id])
+      slim :raw_entry 
     end 
  
     put '/entry/:id/edit' do
