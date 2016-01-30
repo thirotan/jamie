@@ -48,10 +48,6 @@ module SinatraApp
       db.xquery('insert into entries(entry_id, name, body, created_at, updated_at) values (?, ?, ?, ?, ?)', entry_id, name, body, date, date )
     end
 
-    # 投稿されたentryを更新する
-    def edit_entry(name, body, entry_id, date)
-      db.xquery('update entries set name = ?, body = ?, updated_at = ? where entry_id = ?)', name, body, date, entry_id )
-    end
    
     # 個別に1つのentryを取得する
     def get_entry(entry_id)
