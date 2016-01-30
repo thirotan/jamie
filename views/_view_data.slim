@@ -1,7 +1,8 @@
 div class="entry"
-  - @entry_list.each do |el|
-    pre class="prettyprint"
-      | #{el[:body]}
+  - get_entry_list.each do |entry|
+    div class="entry_block"
+      | #{entry[:body]}
     div class="entry_meta"
-      a href="/entry/#{el[:entry_id]}/raw" raw
-      |  nickname:  #{el[:name]}
+      a href="/entry/#{entry[:entry_id]}/raw" raw
+      |  name:  #{entry[:name]}
+      |   #{get_time(entry[:created_at])}

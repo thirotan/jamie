@@ -31,12 +31,17 @@ module SinatraApp
         Thread.current[:like_gist_db] = client
         client
       end
+
+      # すべてのentryを取得する
+      def get_entry_list
+        db.xquery('SELECT * FROM entries ORDER BY created_at DESC')
+      end
+
+      def get_time(time)
+        time.strftime("%Y/%m/%d %H:%M:%S")
+      end
     end
 
-    # すべてのentryを取得する
-    def get_entry_list
-      db.xquery('select * from entries')
-    end
 
     # 投稿を保存する
     def add_entry(name, body, entry_id, date)
@@ -54,7 +59,6 @@ module SinatraApp
     end
     
     get '/' do
-      @entry_list = get_entry_list
       slim :index
     end
 
@@ -64,8 +68,7 @@ module SinatraApp
       created_at = Time.now
       entry_id = Digest::SHA1.hexdigest("#{created_at}#{body}");
       add_entry(name, body, entry_id, created_at)
-      @entry_list = get_entry_list
-      slim :index
+      redirect '/'
     end
 
     get '/entry/:id' do
@@ -78,20 +81,5 @@ module SinatraApp
       slim :raw_entry 
     end 
  
-    #get '/entry/:id/edit' do
-    #  @entry_list = get_entry(params[:id])
-    #  slim :edit 
-    #end
-
-    #put '/entry/:id/edit' do
-    #  name = params[:name]
-    #  body = params[:body]
-    #  entry_id = params[:id]
-    #  updated_at = Time.now
-    #  edit_entry(name, body, entry_id, updated_at)
-
-    #  @entry_list = get_entry(params[:id])
-    #  slim :entry 
-    #end
   end
 end

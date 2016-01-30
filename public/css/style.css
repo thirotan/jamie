@@ -39,17 +39,31 @@ body {
 }
 
 .left {
-  width: 300px;
+  width: 200px;
   background: white;
 }
 
 .right {
-  width: 300px;
+  width: 200px;
   background: white;
 }
 
 .contents {
   flex: 1;
   background: #ffffff;
+}
+
+/* _view_data */
+.entry_block {
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 50px #ddd inset;
+    -moz-box-shadow: 0 0 50px #ddd inset;
+    -webkit-box-shadow: 0 0 50px #ddd inset;
+}
+
+.entry_meta {
+  font-size: small;
+  text-align: right;
 }
 
