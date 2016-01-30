@@ -3,12 +3,10 @@ html
   head
     link href="/css/style.css" type="text/css" rel="stylesheet"
   body
-    div class="container"
-      div class="header"
-        h1 snippets 
-      div class="wrapper"
-        div class="left"
-        div class="contents"
+    div.header
+      h1 snippets 
+    div.container
+      div.wrapper
+        div.contents
           == yield
-        div class="right"
-      div class="footer"
+    div.footer

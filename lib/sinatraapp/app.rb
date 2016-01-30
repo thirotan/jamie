@@ -7,6 +7,8 @@ require 'mysql2-cs-bind'
 
 require 'digest/sha1'
 
+require 'redcarpet'
+
 module SinatraApp
   class Application < Sinatra::Base
     configure do
@@ -16,22 +18,6 @@ module SinatraApp
     end
 
     helpers do
-      def db
-        return Thread.current[:like_gist_db] if Thread.current[:like_gist_db]
-        config ||= YAML.load_file(settings.root+"config.yaml")
-        client = Mysql2::Client.new(
-          host: config['DB']['HOSTNAME'],
-          port: config['DB']['PORT'],
-          username: config['DB']['USERNAME'],
-          password: config['DB']['PASSWORD'],
-          database: config['DB']['DBNAME'],
-          reconnect: true
-        )
-        client.query_options.merge!(symbolize_keys: true)
-        Thread.current[:like_gist_db] = client
-        client
-      end
-
       # すべてのentryを取得する
       def get_entry_list
         db.xquery('SELECT * FROM entries ORDER BY created_at DESC')
@@ -40,18 +26,42 @@ module SinatraApp
       def get_time(time)
         time.strftime("%Y/%m/%d %H:%M:%S")
       end
+
+      def get_markdown(body)
+        markdown.render(body)
+      end
+    end
+
+    def markdown
+      @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    end
+
+    def db
+      return Thread.current[:like_gist_db] if Thread.current[:like_gist_db]
+      config ||= YAML.load_file(settings.root+"config.yaml")
+      client = Mysql2::Client.new(
+        host: config['DB']['HOSTNAME'],
+        port: config['DB']['PORT'],
+        username: config['DB']['USERNAME'],
+        password: config['DB']['PASSWORD'],
+        database: config['DB']['DBNAME'],
+        reconnect: true
+      )
+      client.query_options.merge!(symbolize_keys: true)
+      Thread.current[:like_gist_db] = client
+      client
     end
 
 
     # 投稿を保存する
     def add_entry(name, body, entry_id, date)
-      db.xquery('insert into entries(entry_id, name, body, created_at, updated_at) values (?, ?, ?, ?, ?)', entry_id, name, body, date, date )
+      db.xquery('INSERT INTO  entries(entry_id, name, body, created_at, updated_at) VALUES (?, ?, ?, ?, ?)', entry_id, name, body, date, date )
     end
 
    
     # 個別に1つのentryを取得する
     def get_entry(entry_id)
-      db.xquery('select * from entries where entry_id = ?', entry_id)
+      db.xquery('SELECT * FROM entries WHERE entry_id = ?', entry_id)
     end
     
     get '/' do
@@ -77,5 +87,11 @@ module SinatraApp
       slim :raw_entry 
     end 
  
+    get '/entry/:id/markdown' do
+      entry_list = get_entry(params[:id])
+      @entry = get_markdown(entry_list.first[:body])
+      slim :markdown_entry
+    end 
+
   end
 end

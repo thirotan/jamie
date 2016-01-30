@@ -11,8 +11,8 @@ gem 'mysql2'
 gem 'slim'
 #gem "sass"
 
-# select of no database
-#gem 'redis'
+# markdown render
+gem 'redcarpet'
 
 group :test do
   gem 'rspec'

@@ -1,8 +1,9 @@
-div class="entry"
+div.entry
   - get_entry_list.each do |entry|
-    div class="entry_block"
+    div.entry_block
       | #{entry[:body]}
-    div class="entry_meta"
-      a href="/entry/#{entry[:entry_id]}/raw" raw
+    div.entry_meta
+      a href="/entry/#{entry[:entry_id]}/raw"  raw
+      a href="/entry/#{entry[:entry_id]}/markdown"  markdown
       |  name:  #{entry[:name]}
       |   #{get_time(entry[:created_at])}
