@@ -1,7 +1,0 @@
----
-DB:
- HOSTNAME: localhost
- PORT: 3306
- USERNAME: www
- PASSWORD: www
- DBNAME: like_gist_db
