@@ -3,3 +3,4 @@ Gemfile.lock
 .bundle
 db_init.sh
 start.sh
+config.yaml

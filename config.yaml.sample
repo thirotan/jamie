@@ -1,0 +1,7 @@
+---
+DB:
+ HOSTNAME: localhost
+ PORT: 3306
+ USERNAME: www
+ PASSWORD: www
+ DBNAME: jamie_db
