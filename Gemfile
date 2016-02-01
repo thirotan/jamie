@@ -2,6 +2,8 @@ source 'https://rubygems.org/'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'sinatra-formkeeper'
+gem 'sinatra-flash'
 
 # select of database toolkit
 gem 'mysql2-cs-bind'

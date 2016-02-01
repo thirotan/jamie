@@ -3,14 +3,11 @@ html
   head
     link href="/css/style.css" type="text/css" rel="stylesheet"
   body
-    div.header
+    div#header
       ul
         li.title
-          | snippets 
+          | 貼り付けメモ
         li
           a href="/" Home
-    div.container
-      div.wrapper
-        div.contents
-          == yield
-    div.footer
+    == yield
+    div#footer

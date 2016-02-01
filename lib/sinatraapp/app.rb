@@ -1,20 +1,27 @@
 require 'sinatra/base'
 require 'sinatra/contrib'
+require 'sinatra/formkeeper'
+require 'sinatra/flash'
+
+
 require 'slim'
+require 'redcarpet'
 
 require 'mysql2'
 require 'mysql2-cs-bind'
 
 require 'digest/sha1'
 
-require 'redcarpet'
 
 module SinatraApp
   class Application < Sinatra::Base
+    register Sinatra::FormKeeper
+    register Sinatra::Flash
     configure do
       set :bind, '0.0.0.0'
       set :public_folder, File.dirname(__FILE__) + '/../../public'
       set :root, File.dirname(__FILE__) + '/../../'
+      enable :sessions
     end
 
     helpers do
@@ -30,8 +37,9 @@ module SinatraApp
       def get_markdown(body)
         markdown.render(body)
       end
+ 
     end
-
+ 
     def markdown
       @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML)
     end
@@ -63,18 +71,30 @@ module SinatraApp
     def get_entry(entry_id)
       db.xquery('SELECT * FROM entries WHERE entry_id = ?', entry_id)
     end
+
+    before do
+      flash[:error] = nil
+    end
     
     get '/' do
       slim :index
     end
 
     post '/add' do
-      name = params[:name]
-      body = params[:body]
-      created_at = Time.now
-      entry_id = Digest::SHA1.hexdigest("#{created_at}#{body}");
-      add_entry(name, body, entry_id, created_at)
-      redirect '/'
+      form do
+        filters :strip
+        field :name, :default => '名無しさん', :length => 0..30
+        field :body, :present => true, :length => 1..1000
+      end
+      if form.failed?
+        flash[:error] = "本文に何も書いてないです"
+        redirect '/'
+      else
+        created_at = Time.now
+        entry_id = Digest::SHA1.hexdigest("#{created_at}#{body}");
+        add_entry(form[:name], form[:body], entry_id, created_at)
+        redirect '/'
+      end
     end
 
     get '/entry/:id' do

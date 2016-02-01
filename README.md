@@ -1,1 +1,1 @@
-# This Application is something like gist.
+# This Application is memo app.
