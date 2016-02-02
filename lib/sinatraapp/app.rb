@@ -25,6 +25,13 @@ module SinatraApp
     end
 
     helpers do
+      include Rack::Utils
+      alias_method :h, :escape_html
+      def br(str) 
+        data = h str
+        data.gsub(/\r\n|\r|\n/, "<br />")
+      end
+
       # すべてのentryを取得する
       def get_entry_list
         db.xquery('SELECT * FROM entries ORDER BY created_at DESC')
@@ -98,12 +105,14 @@ module SinatraApp
     end
 
     get '/entry/:id' do
-      @entry_list = get_entry(params[:id])
+      entry_list = get_entry(params[:id])
+      @entry = entry_list.first[:body]
       slim :entry 
     end 
 
     get '/entry/:id/raw' do
-      @entry_list = get_entry(params[:id])
+      entry_list = get_entry(params[:id])
+      @entry = entry_list.first[:body]
       slim :raw_entry 
     end 
  

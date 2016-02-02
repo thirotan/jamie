@@ -80,9 +80,9 @@ body {
 .entry_block {
   padding: 20px;
   background: #ffffff;
-  box-shadow: 0 0 50px #ADD8E6 inset;
-  -moz-box-shadow: 0 0 50px #ADD8E6 inset;
-  -webkit-box-shadow: 0 0 50px #ADD8E6 inset;
+  box-shadow: 0 0 50px #e5e5e5 inset;
+  -moz-box-shadow: 0 0 50px #e5e5e5 inset;
+  -webkit-box-shadow: 0 0 50px #e5e5e5 inset;
 }
 
 .entry_meta {
@@ -92,9 +92,7 @@ body {
 
 /* flash error message */
 .flash-error {
-  color: #ff0000;
-  border: #ffb6c1 solid 1px;
-  border-left: #ffb6c1 solid 10px;
-  padding: 20px;
-  background: #fff;
+  background:#F2DEDE;
+  color:#B94A48;
+  border:1px solid #EED3D7;
 }
