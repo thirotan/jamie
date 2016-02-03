@@ -69,7 +69,9 @@ module SinatraApp
 
 
     # 投稿を保存する
-    def add_entry(name, body, entry_id, date)
+    def add_entry(name, body)
+      date = Time.now
+      entry_id = Digest::SHA1.hexdigest("#{date}#{body}");
       db.xquery('INSERT INTO  entries(entry_id, name, body, created_at, updated_at) VALUES (?, ?, ?, ?, ?)', entry_id, name, body, date, date )
     end
 
@@ -97,9 +99,7 @@ module SinatraApp
         flash[:error] = "本文に何も書いてないです"
         redirect '/'
       else
-        created_at = Time.now
-        entry_id = Digest::SHA1.hexdigest("#{created_at}#{body}");
-        add_entry(form[:name], form[:body], entry_id, created_at)
+        add_entry(form[:name], form[:body])
         redirect '/'
       end
     end
