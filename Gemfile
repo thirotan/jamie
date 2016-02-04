@@ -19,6 +19,6 @@ gem 'redcarpet'
 group :test do
   gem 'rspec'
   gem 'rack-test'
-  #gem 'capybara'
+  gem 'capybara'
   #gem 'factory_girl'
 end
