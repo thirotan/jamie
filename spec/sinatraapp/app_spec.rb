@@ -19,6 +19,8 @@ describe 'sinatraapp/app.rb' do
       end
 
       it "redirect to top page" do
+        expect(last_response).to be_ok                                                                                                         
+        expect(response).to render_template('/')                                                                                                        
       end
     end
 
@@ -37,20 +39,25 @@ describe 'sinatraapp/app.rb' do
       it { is_expected.to respond_to(:entry) }
       it { is_expected.to respond_to(:name) }
 
-      it "save the new entry" do
-      end
-
       it "redirect to top page" do
+        expect(last_response).to be_ok                                                                                                         
+        expect(response).to render_template('/')                                                                                                        
       end
     end
   end                                                                                                                                        
 
   describe 'GET /entry/:id' do
     it 'show the new entry of entry page' do
+        expect(last_response).to be_ok                                                                                                         
+        expect(response).to render_template( /entry/@entry.entry_id )                                                                                                        
     end
     it 'show the new entry of raw text page' do
+        expect(last_response).to be_ok                                                                                                         
+        expect(response).to render_template"/entry/#{id}/raw")                                                                                                        
     end
     it 'show the new entry of markwodn page' do
+        expect(last_response).to be_ok                                                                                                         
+        expect(response).to render_template"/entry/#{id}/markdown")                                                                                                        
     end
   end
 end   
