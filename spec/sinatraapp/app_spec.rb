@@ -5,7 +5,7 @@ describe 'sinatraapp/app.rb' do
                                                                                                                                              
   describe 'GET /' do                                                                                                             
     it 'should get page index 200' do                                                                                                                   
-      get '/'                                                                                                                                
+      visit '/'                                                                                                                                
       expect(last_response).to be_ok                                                                                                         
     end                                                                                                                                      
   end
@@ -13,7 +13,7 @@ describe 'sinatraapp/app.rb' do
   describe 'POST /add' do
     #投稿失敗
     describe "with invalid attributes" do
-      before { get '/' }
+      before { visit '/' }
 
       it "does not save the new entry" do
       end
