@@ -5,7 +5,7 @@ div.container
       - if flash[:error]
         div.flash-error
           = flash[:error]
-      form method="post" action="/add"
+      form id="post-entry" method="post" action="/add"
         textarea name="body" rows="20" cols="80"
         br
         label for="name" nickname:  

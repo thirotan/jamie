@@ -26,9 +26,12 @@ describe 'sinatraapp/app.rb' do
     describe "with valid attributes" do
       before do
         get '/'
-        @entry = add_entry('test_user1', 'test entry')
+        within('#post-entry') do
+          fill_in "body", with:"post entry test"
+          fill_in "name", with:"post test"
+          click_button "POST"
+        end
       end
-      subject { @entry }    
 
       it { is_expected.to respond_to(:entry_id) }
       it { is_expected.to respond_to(:entry) }

@@ -5,10 +5,10 @@ require 'rack/test'
 require 'capybara'
 
 RSpec.configure do |conf|
-  config.include Capybara::DSL
+  conf.include Capybara::DSL
   conf.include Rack::Test::Methods
 end
 
 def app                                                                                                                                    
-  SinatraApp::Application                                                                                                                  
+  Capybara.app = SinatraApp::Application                                                                                                                  
 end                                                                                                                                        
