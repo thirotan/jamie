@@ -4,9 +4,9 @@ require 'sinatraapp/app'
 describe 'sinatraapp/app.rb' do                                                                                                                   
                                                                                                                                              
   describe 'GET /' do                                                                                                             
-    it 'should get page index 200' do                                                                                                                   
-      get '/'
-      expect(last_response).to be_ok                                                                                                         
+    it 'redirect to top page' do                                                                                                                   
+      visit '/'
+      expect(page).to be_has_content('新規投稿')
     end                                                                                                                                      
   end
 
