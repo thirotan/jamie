@@ -20,27 +20,23 @@ describe 'sinatraapp/app.rb' do
 
       it "redirect to top page" do
         skip
-        #expect(last_response).to be_ok                                                                                                         
-        #expect(response).to render_template('/')                                                                                                        
       end
     end
 
     #投稿成功
     describe "with valid attributes" do
-      before do
-        #get '/'
-        #within('#post-entry') do
-        #  fill_in "body", with:"post entry test"
-        #  fill_in "name", with:"post test"
-        #  click_button "POST"
-        #end
-      end
+      #before do
+      #  visit '/'
+      #  within('#post-entry') do
+      #    fill_in "body", with:"post entry test"
+      #    fill_in "name", with:"post test"
+      #    click_button "POST"
+      #  end
+      #end
 
-      it "redirect to top page" do
-        skip
-        #expect(last_response).to be_ok                                                                                                         
-        #expect(response).to render_template('/')                                                                                                        
-      end
+      #it "redirect to top page" do
+      #  expect(page).to be_has_content('post entry test')
+      #end
     end
   end                                                                                                                                        
 
