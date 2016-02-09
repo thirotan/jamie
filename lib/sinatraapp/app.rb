@@ -52,7 +52,7 @@ module SinatraApp
     end
 
     def db
-      return Thread.current[:like_gist_db] if Thread.current[:like_gist_db]
+      return Thread.current[:sinatra_db] if Thread.current[:sinatra_db]
       config ||= YAML.load_file(settings.root+"config.yaml")
       client = Mysql2::Client.new(
         host: config['DB']['HOSTNAME'],
@@ -63,7 +63,7 @@ module SinatraApp
         reconnect: true
       )
       client.query_options.merge!(symbolize_keys: true)
-      Thread.current[:like_gist_db] = client
+      Thread.current[:sinatra_db] = client
       client
     end
 
